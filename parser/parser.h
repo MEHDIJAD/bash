@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <string.h>
+#include <string.h> //! RML
 
 typedef enum s_token_type
 {
@@ -25,8 +25,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+//libft
 int		ft_isspace(int c);
 int		ft_isquot(int c);
+char	*ft_strncpy(char *dest, const char *src, size_t dstsize);
+size_t ft_strlen(const char *string);
+
 t_token *ft_tokenize(char *line);
 char	**ft_split_tokens(const char *line);
 t_token	*ft_token_new(char *value, t_token_type type);

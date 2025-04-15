@@ -1,6 +1,5 @@
 #include "parser.h"
 
-
 int main(void)
 {
 	char	*line;

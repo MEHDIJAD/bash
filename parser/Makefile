@@ -2,6 +2,8 @@ SRC = parser.c \
       1-ft_tokenize.c \
 	  ft_split_tokens.c \
 	  ft_isspace.c \
+	  ft_strncpy.c \
+	  ft_strlen.c \
 	  ft_isquot.c \
 	  ft_token_new.c \
 	  ft_token_add_back.c \
