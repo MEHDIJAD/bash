@@ -7,6 +7,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <string.h> //! RML
+#include <stdbool.h>
 
 typedef enum s_token_type
 {
@@ -31,6 +32,7 @@ int		ft_isquot(int c);
 char	*ft_strncpy(char *dest, const char *src, size_t dstsize);
 size_t ft_strlen(const char *string);
 
+// Tokenize Part
 t_token *ft_tokenize(char *line);
 char	**ft_split_tokens(const char *line);
 t_token	*ft_token_new(char *value, t_token_type type);
@@ -39,5 +41,6 @@ void    ft_token_delone(t_token *node);
 void    ft_token_clear(t_token **token_list);
 int		ft_token_size(t_token *head); // might need later
 void	ft_print_token_list(t_token *head); // just for printing
+int ft_synax_error_free(const char *line);
 
 #endif

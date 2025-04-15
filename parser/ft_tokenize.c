@@ -1,7 +1,5 @@
 #include "parser.h"
 
-#include "parser.h"
-
 t_token_type ft_token_type(char *token)
 {
     if (strcmp(token, "|") == 0)

@@ -4,13 +4,14 @@ int main(void)
 {
 	char	*line;
     t_token *token_list_head = NULL;
-    // one-time setup; ensures the pointer is not holding a garbage value
+    //~ one-time setup; ensures the pointer is not holding a garbage value
 
 	while ((line = readline("minishell$ ")))
 	{
+		// ft_synax_error_free(line);
         token_list_head = NULL;
-        // per-command reset; after each tokenize list
-		if (line && *line)
+        // //~ init = NULL per-command reset; after each tokenize list
+		if (line && *line && ft_synax_error_free(line))
         {
 			add_history(line);
             token_list_head = ft_tokenize(line);
