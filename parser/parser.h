@@ -10,12 +10,12 @@
 
 typedef enum s_token_type
 {
-	TOKEN_WORD,
-	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC,
+	TOKEN_WORD, // 0
+	TOKEN_PIPE, // 1
+	TOKEN_REDIR_IN, // 2
+	TOKEN_REDIR_OUT, // 3
+	TOKEN_REDIR_APPEND, // 4
+	TOKEN_REDIR_HEREDOC, // 5
 }	t_token_type;
 
 typedef struct s_token
@@ -25,10 +25,15 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-t_token *ft_tokenize(char *line);
-char	**ft_split_whitespace(char const *s);
 int		ft_isspace(int c);
+int		ft_isquot(int c);
+t_token *ft_tokenize(char *line);
+char	**ft_split_tokens(const char *line);
 t_token	*ft_token_new(char *value, t_token_type type);
 void	ft_token_add_back(t_token **token_list, t_token *new_node);
+void    ft_token_delone(t_token *node);
+void    ft_token_clear(t_token **token_list);
+int		ft_token_size(t_token *head); // might need later
+void	ft_print_token_list(t_token *head); // just for printing
 
 #endif

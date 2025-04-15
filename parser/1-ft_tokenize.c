@@ -1,24 +1,6 @@
 #include "parser.h"
 
-// size_t ft_count_tokens(char *line)
-// {
-//     int index = 0;
-//     size_t cnt_tokens = 0;
-
-//     while (line[index])
-//     {
-//         while(line[index] && ft_isspace(line[index]))
-//             index++;
-//         if (line[index])
-//         {
-//             cnt_tokens++;
-//             while (line[index] && !ft_isspace(line[index]))
-//                 index++;   
-//         }
-//     }
-//     return (cnt_tokens);
-    
-// }
+#include "parser.h"
 
 t_token_type ft_token_type(char *token)
 {
@@ -41,22 +23,19 @@ t_token *ft_tokenize(char *line)
     char **tkn_array = NULL;
     t_token *head = NULL;
     t_token *new_node = NULL;
+    t_token_type type;
 
     if (!line)
         return (NULL);
-    tkn_array = ft_split_whitespace(line);
+    tkn_array = ft_split_tokens(line);
     if (!tkn_array)
         return (NULL);
     while (tkn_array[i])
     {
-        t_token_type type = ft_token_type(tkn_array[i]);
+        type = ft_token_type(tkn_array[i]);
         new_node = ft_token_new(tkn_array[i], type);
         if (!new_node)
-        {
-            free(tkn_array);
-            // ft_token_clear(&head); //! w need to add; it is like ft_lstclear
-            return (NULL);
-        }
+            return (free(tkn_array), ft_token_clear(&head), NULL);
         ft_token_add_back(&head, new_node);
         i++;
     }
