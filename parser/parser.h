@@ -6,8 +6,9 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <string.h> //! RML
 #include <stdbool.h>
+#include <errno.h> //! MBLater
+
 
 typedef enum s_token_type
 {

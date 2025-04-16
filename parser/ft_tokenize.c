@@ -15,6 +15,14 @@ t_token_type ft_token_type(char *token)
     else
         return (TOKEN_WORD);
 }
+
+// int ft_synatx_error(t_token *head)
+// {
+// 	t_token *current;
+
+// 	current = head;
+
+// }
 t_token *ft_tokenize(char *line)
 {
     size_t i = 0;
@@ -39,5 +47,6 @@ t_token *ft_tokenize(char *line)
     }
     free(tkn_array);
     tkn_array = NULL;
+	// ft_synatx_error(head); //!LOOK
     return (head); 
 }

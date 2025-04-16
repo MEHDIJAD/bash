@@ -6,9 +6,8 @@ int main(void)
     t_token *token_list_head = NULL;
     //~ one-time setup; ensures the pointer is not holding a garbage value
 
-	while ((line = readline("minishell$ ")))
+	while ((line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002")))
 	{
-		// ft_synax_error_free(line);
         token_list_head = NULL;
         // //~ init = NULL per-command reset; after each tokenize list
 		if (line && *line && ft_synax_error_free(line))

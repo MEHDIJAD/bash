@@ -32,21 +32,21 @@ int quote_error(const char *line)
 int ft_helper_pipe_func(const char *line)
 {
 	size_t lenght;
-	int start;
-	int end;
+	int start_index;
+	int end_index;
 
 	lenght =  ft_strlen(line);
 	if (lenght == 0)
 		return (0);
-	start = 0;
-	while(line[start] && ft_isspace(line[start]))
-		start++;
-	if (!line[start] || line[start] == '|')
+	start_index = 0;
+	while(line[start_index] && ft_isspace(line[start_index]))
+		start_index++;
+	if (!line[start_index] || line[start_index] == '|')
 		return (1);
-	end = lenght - 1;
-	while (end >= 0 && ft_isspace(line[end]))
-		end--;
-	if (line[end] == '|')
+	end_index = lenght - 1;
+	while (end_index >= 0 && ft_isspace(line[end_index]))
+		end_index--;
+	if (line[end_index] == '|')
 		return (1);
 	return (0);
 }
@@ -63,7 +63,7 @@ int pipe_error(const char *line)
 	{
 		if (ft_isspace(line[i]))
 		{
-			// ignore this case and move one
+			// it stop the else if and else parts from running when line[i] is a space.
 		}
 		else if (line[i] == '|')
 		{
@@ -94,17 +94,19 @@ int	redir_error(const char *line)
 		return (1);
 	return (0);
 }
+void	ft_print_syntax_error(char *error_message)
+{
+	printf("\033[1;31msyntax error:\033[0m \033[1;36m%s\033[0m\n", error_message);
+}
 int ft_synax_error_free(const char *line)
 {
-	if (!line) //! keep this so you do not repeat in all error funcs 
+	if (!line)
 		return (0);
-	// if (redir_error(line) == 1){
-	// 	printf("invalid cmd\n");
-	// 	return (0);
-	// }
-	// else{
-	// 	printf("valid cmd\n");
-	// 	return (1);
-	// }
+	if (quote_error(line))
+    	ft_print_syntax_error("unclosed quote");
+	else if (pipe_error(line))
+    	ft_print_syntax_error("unexpected token `|`");
+	else if (redir_error(line))
+    	ft_print_syntax_error("unexpected redirection at end");
 	return (!quote_error(line) && !pipe_error(line) && !redir_error(line));
 }
