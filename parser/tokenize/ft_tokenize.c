@@ -1,5 +1,12 @@
-#include "parser.h"
+#include "../parser.h"
 
+int is_redirection(t_token_type type)
+{
+	return (type == TOKEN_REDIR_IN ||
+			type == TOKEN_REDIR_OUT ||
+			type == TOKEN_REDIR_APPEND ||
+			type == TOKEN_REDIR_HEREDOC);
+}
 t_token_type ft_token_type(char *token)
 {
     if (strcmp(token, "|") == 0)
@@ -16,13 +23,32 @@ t_token_type ft_token_type(char *token)
         return (TOKEN_WORD);
 }
 
-// int ft_synatx_error(t_token *head)
-// {
-// 	t_token *current;
+int ft_synatx_error(t_token *head)
+{
+	t_token *current;
 
-// 	current = head;
+	current = head;
+	while (current)
+	{
+		if (is_redirection(current->type))
+		{
+			if (is_redirection(current->next->type))
+			{
+				printf("\033[1;31mSyntax error:\033[0m \033[1;36mconsecutive redirection operators\033[0m\n");
+				return (1);
+			}
+			else if (current->next->type == TOKEN_PIPE)
+			{
+				printf("\033[1;31mSyntax error:\033[0m \033[1;36mnear unexpected token '|'\033[0m\n");
+				return (1);
+			}
+		}
+		current = current->next;
+	}
+	return (0);
+}
 
-// }
+
 t_token *ft_tokenize(char *line)
 {
     size_t i = 0;
@@ -47,6 +73,7 @@ t_token *ft_tokenize(char *line)
     }
     free(tkn_array);
     tkn_array = NULL;
-	// ft_synatx_error(head); //!LOOK
+	if (ft_synatx_error(head))
+		return (ft_token_clear(&head),NULL);
     return (head); 
 }

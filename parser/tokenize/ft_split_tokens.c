@@ -1,5 +1,19 @@
-#include "parser.h"
+#include "../parser.h"
 
+int	ft_isoperater(int c)
+{
+	return (c == '|' || c == '<' || c == '>');
+}
+
+int ft_isdouble_op(const char *line, int k)
+{
+	if ((line[k] == '>' && line[k + 1] == '>')
+		|| (line[k] == '<' && line[k + 1] == '<'))
+	{
+		return (1);
+	}
+	return (0);
+}
 static char **free_all(char **tkn_array, int i)
 {
 	while (i >= 0)
@@ -23,9 +37,16 @@ static void skip_token(const char *line, int *i)
 		if (line[*i] == quote)
 			(*i)++;
 	}
+	else if (ft_isoperater(line[*i]))
+	{
+		if (ft_isdouble_op(line, *i))
+			*i +=2;
+		else
+			(*i)++;
+	}
 	else
 		while (line[*i] && !ft_isspace(line[*i]) 
-				&& !ft_isquot(line[*i]))
+				&& !ft_isquot(line[*i]) && !ft_isoperater(line[*i]))
 					(*i)++;
 }
 static size_t ft_cnt_tokens(const char *line)
@@ -64,11 +85,30 @@ static char *extract_token(const char *line, int *k)
 			(*k)++;
 		if (line[*k] == quote_char)
 			(*k)++;
+		token_len = *k - j;
+	}
+	else if (ft_isoperater(line[j]))
+	{
+		if (ft_isdouble_op(line, j))
+		{
+			token_len = 2;
+			*k += 2; 
+		}
+		else
+		{
+			token_len = 1;
+			(*k)++;
+		}
 	}
 	else
-		while(line[*k] && !ft_isspace(line[*k]) && !ft_isquot(line[*k]))
+	{
+		while(line[*k] && !ft_isspace(line[*k]) 
+			&& !ft_isquot(line[*k]) && !ft_isoperater(line[*k]))
 					(*k)++;
-	token_len = *k - j;
+		token_len = *k - j;	
+	}
+	if (token_len <= 0) // Handle cases like "" or potential errors
+	    token_len = 0; // Ensure non-negative length for malloc
 	token_str = malloc(sizeof(char) *(token_len + 1));
 	if (!token_str)
 		return (NULL);

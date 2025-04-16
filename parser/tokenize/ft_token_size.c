@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../parser.h"
 
 int ft_token_size(t_token *head)
 {

@@ -1,25 +1,27 @@
 SRC = parser.c \
-      ft_tokenize.c \
-	  ft_split_tokens.c \
-	  ft_isspace.c \
-	  ft_strncpy.c \
-	  ft_strlen.c \
-	  ft_isquot.c \
-	  ft_token_new.c \
-	  ft_token_add_back.c \
-	  ft_token_delone.c \
-	  ft_token_clear.c \
-	  ft_token_size.c \
-	  ft_synax_error_free.c \
-	  ft_print.c \
+	  tokenize/ft_tokenize.c \
+	  tokenize/ft_split_tokens.c \
+	  tokenize/ft_isspace.c \
+	  tokenize/ft_strncpy.c \
+	  tokenize/ft_strlen.c \
+	  tokenize/ft_isquot.c \
+	  tokenize/ft_token_new.c \
+	  tokenize/ft_token_add_back.c \
+	  tokenize/ft_token_delone.c \
+	  tokenize/ft_token_clear.c \
+	  tokenize/ft_token_size.c \
+	  tokenize/ft_synax_error_free.c \
+	  tokenize/ft_print_tokens.c \
 
 
 OBJS = $(SRC:.c=.o)
+READLINE_LIB_DIR = $(shell brew --prefix readline)/lib
+READLINE_INC_DIR = $(shell brew --prefix readline)/include
 
 NAME = parsi
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -I/mnt/homes/eel-garo/Desktop/readline/include 
-LDFLAG = -L/mnt/homes/eel-garo/Desktop/readline/lib -lreadline -lncurses
+CFLAGS = -Wall -Wextra -Werror -I$(READLINE_INC_DIR) 
+LDFLAG = -L$(READLINE_LIB_DIR) -lreadline -lncurses
 RM = rm -rf
 
 all: $(NAME)

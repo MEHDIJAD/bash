@@ -16,8 +16,6 @@ int main(void)
             token_list_head = ft_tokenize(line);
             if (token_list_head)
                 ft_print_token_list(token_list_head);
-            else
-                printf("Tokenization failed or line was empty.\n");
         }
 		free(line);
         ft_token_clear(&token_list_head);

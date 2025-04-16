@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../parser.h"
 
 int quote_error(const char *line)
 {

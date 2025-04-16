@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../parser.h"
 
 const char* get_token_type_name(t_token_type type) {
     switch (type) {

@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../parser.h"
 
 void    ft_token_clear(t_token **token_list)
 {
