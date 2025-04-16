@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/16 15:44:48 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:54:30 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int		ft_isspace(int c);
 int		ft_isquot(int c);
 char	*ft_strncpy(char *dest, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *string);
+
+//ft_utils_split.c
+int		ft_isoperater(int c);
+int		ft_isdouble_op(const char *line, int k);
+char	**free_all(char **tkn_array, int i);
+char	*ft_alloc_token(int token_len, int j, const char *line);
+// ft_utils_error.c
+int		quote_error(const char *line);
+int		pipe_error(const char *line);
+int		redir_error(const char *line);
 
 // Tokenize Part
 t_token	*ft_tokenize(char *line);
