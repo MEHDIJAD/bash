@@ -1,5 +1,5 @@
 SRC = parser.c \
-	  tokenize/ft_tokenize.c \
+	  tokenize/tokenizer.c \
 	  tokenize/ft_split_tokens.c \
 	  tokenize/ft_utils_split.c \
 	  tokenize/ft_isspace.c \
@@ -13,6 +13,16 @@ SRC = parser.c \
 	  tokenize/ft_synax_error_free.c \
 	  tokenize/ft_utils_error.c \
 	  tokenize/ft_print_tokens.c \
+	  expander/expander.c \
+	  expander/env/ft_getenv.c \
+	  expander/env/ft_tenv_new.c \
+	  expander/env/ft_tenv_add_back.c \
+	  expander/env/ft_tenv_last.c \
+	  expander/env/ft_tenv_delone.c \
+	  expander/env/ft_tenv_clear.c \
+	  expander/env/ft_strdup.c \
+	  expander/env/ft_strchr.c \
+
 
 
 OBJS = $(SRC:.c=.o)
