@@ -30,8 +30,8 @@ READLINE_LIB_DIR = $(shell brew --prefix readline)/lib
 READLINE_INC_DIR = $(shell brew --prefix readline)/include
 
 NAME = parsi
-CC = cc 
-CFLAGS = -Wall -Wextra -Werror -I$(READLINE_INC_DIR) 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(READLINE_INC_DIR)
 LDFLAG = -L$(READLINE_LIB_DIR) -lreadline -lncurses
 RM = rm -rf
 
