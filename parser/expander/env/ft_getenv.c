@@ -44,7 +44,7 @@ static char	**ft_split_env(char *env_line)
 // 	curr = head;
 // 	while(curr)
 // 	{
-// 		printf("%s=%s\n", curr->name, curr->value);
+// 		printf("%s=%s-->%d\n", curr->name, curr->value, curr->flag_env);
 // 		curr = curr->next;
 // 	}
 // }
@@ -53,7 +53,7 @@ int ft_flag_env(char *env_line)
 {
 	if (env_line[0] == '_')
 		return (1);
-	else if (strnstr(env_line, "SHLVL", ft_strlen(env_line)))
+	else if (ft_strnstr(env_line, "SHLVL", ft_strlen(env_line)))
 		return (1);
 	return (0);
 }

@@ -22,38 +22,41 @@ SRC = parser.c \
 	  expander/env/ft_tenv_clear.c \
 	  expander/env/ft_strdup.c \
 	  expander/env/ft_strchr.c \
+	  expander/env/ft_strnstr.c \
 
 
 
 OBJS = $(SRC:.c=.o)
-READLINE_LIB_DIR = $(shell brew --prefix readline)/lib
-READLINE_INC_DIR = $(shell brew --prefix readline)/include
 
 NAME = parsi
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(READLINE_INC_DIR)
-LDFLAG = -L$(READLINE_LIB_DIR) -lreadline -lncurses
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+LDFLAG = -lreadline -lncurses
 RM = rm -rf
 
 all: $(NAME)
 
 $(NAME): $(OBJS) parser.h
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAG)
-
+	@echo "Linking $(NAME) ..."
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAG)
+	@echo "parsi Successfully built."
 
 %.o:%.c parser.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	${RM} ${OBJS}
+	@${RM} ${OBJS}
+	@echo "Object files cleaned"
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
+	@echo "Excutable $(NAME) cleaned."
 
 re: fclean all
+	@echo "Rebuilt $(NAME)."
 
 run:
-	@$(MAKE) all
-	@$(MAKE) clean
+	@$(MAKE) --no-print-directory all
+	@$(MAKE) --no-print-directory clean
 	@echo "Build complete, object files cleand."
 	

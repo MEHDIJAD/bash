@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/17 15:09:15 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:07:40 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_expander(t_token *token, t_env *env);
 //	expander/env
 t_env	*ft_getenv(char **env);
 char	*ft_strdup(const char *s1);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strchr(const char *s, int c);
 t_env	*ft_tenv_new(char *name, char *value, int flag);
 void	ft_tenv_add_back(t_env **env_list, t_env *new_node);

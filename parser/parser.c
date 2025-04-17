@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:54 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/17 16:23:27 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:23:40 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	// t_token	*token_list_head;
-	// t_env	*env_list_head;
+	t_token	*token_list_head;
+	t_env	*env_list_head;
 
-	// token_list_head = NULL;
-	// env_list_head = NULL;
+	token_list_head = NULL;
+	env_list_head = NULL;
 	(void)ac;
 	(void)av;
-	(void)env;
-	// env_list_head = ft_getenv(env);
+	env_list_head = ft_getenv(env);
 	//~ one-time setup; ensures the pointer is not holding a garbage value
 	while (1)
 	{
@@ -30,24 +29,24 @@ int	main(int ac, char **av, char **env)
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!line)
 			break ;
-		// token_list_head = NULL;
-		// // //~ init = NULL per-command reset; after each tokenize list
-		// if (line && *line && ft_synax_error_free(line))
-		// {
-		// 	add_history(line);
-		// 	token_list_head = ft_tokenize(line);
-		// 	if (token_list_head)
-		// 		ft_print_token_list(token_list_head);
-		// }
+		token_list_head = NULL;
+		//~ init = NULL per-command reset; after each tokenize list
+		if (line && *line && ft_synax_error_free(line))
+		{
+			add_history(line);
+			token_list_head = ft_tokenize(line);
+			if (token_list_head)
+				ft_print_token_list(token_list_head);
+		}
 		
-		// free(line);
-		// ft_token_clear(&token_list_head);
-		// token_list_head = NULL;
-		// line = NULL;
+		free(line);
+		ft_token_clear(&token_list_head);
+		token_list_head = NULL;
+		line = NULL;
 	}
 	free(line);
 	line = NULL;
-	// ft_tenv_clear(&env_list_head);
-	// rl_clear_history();
+	ft_tenv_clear(&env_list_head);
+	rl_clear_history();
 	return (0);
 }
