@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/17 17:07:40 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:57:03 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	ft_print_token_list(t_token *head); // just for printing
 int		ft_synax_error_free(const char *line);
 
 // expander Part
-void	ft_expander(t_token *token, t_env *env);
+void	ft_expander(t_token **token, t_env *env);
+char	*ft_itoa(int n);
 
 //	expander/env
 t_env	*ft_getenv(char **env);
