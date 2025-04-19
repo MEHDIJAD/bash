@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/19 11:08:40 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:15:51 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ int		ft_synax_error_free(const char *line);
 
 // expander Part
 void	ft_expander(t_token **token, t_env *env);
-char	*ft_itoa(int n);
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+char	*ft_strjoined(char const *string, char const *str);
+int		ft_strcmp(const char *alpha, const char *bita);
 
 //	expander/env
 t_env	*ft_getenv(char **env);
