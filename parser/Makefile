@@ -15,6 +15,7 @@ SRC = parser.c \
 	  tokenize/ft_print_tokens.c \
 	  expander/expander.c \
 	  expander/ft_itoa.c \
+	  expander/ft_realloc.c \
 	  expander/env/ft_getenv.c \
 	  expander/env/ft_tenv_new.c \
 	  expander/env/ft_tenv_add_back.c \

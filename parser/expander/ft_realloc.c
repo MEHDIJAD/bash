@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../parser.h"
 
 #include <stdlib.h> // For malloc, free
 #include <stddef.h> // For size_t
