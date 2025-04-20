@@ -110,12 +110,13 @@ char	*ft_ckeckvt_exist(t_env *env, char *variable_name)
 	curr = env;
 	while (curr)
 	{
-		if (ft_strcmp(curr->name, variable_name))
+		if (ft_strcmp(curr->name, variable_name) == 0)
 			return (ft_strdup(curr->value));
 		curr = curr->next;
 	}
 	return (NULL);
 }
+
 void	ft_expand(t_token **current, t_env *env)
 {
 	int		i;
@@ -124,6 +125,8 @@ void	ft_expand(t_token **current, t_env *env)
 	char	*new_string;
 	char	*value;
 	char	*temp;
+	char	*befor_string;
+	int		last_pos = 0;
 
 	i = 0;
 	// j = 0;
@@ -131,15 +134,21 @@ void	ft_expand(t_token **current, t_env *env)
 
 	while ((*current)->value[i])
 	{
-		if ((*current)->value[i] && (*current)->value[i + 1] && (*current)->value[i] == '$')
+		if ((*current)->value[i] == '$' && (*current)->value[i + 1])
 		{
-
+			if (i > last_pos)
+			{
+				befor_string =  ft_substr((*current)->value, last_pos, i - last_pos); //
+				temp = ft_strjoined(new_string, befor_string);
+				free(new_string);
+				free(befor_string);
+				new_string = temp;
+			}
 			peak = ft_peakahead((*current)->value[i + 1]);
 			if (peak == -1)
 				return ;
 			else if (peak == 1)
 			{
-				printf("here\n");
 				// $variable_name
 				variable_name =  ft_build_variable_name(&(*current)->value[i + 1], &i, peak);
 				// printf("$ variable_name is %s\n", variable_name);
@@ -150,6 +159,8 @@ void	ft_expand(t_token **current, t_env *env)
 				}
 				free(variable_name);
 				free(value);
+				i++;
+				last_pos = i;
 				continue; // <--- Skip the final i++ for this iteration
 			}
 			else if (peak == 2)
@@ -176,11 +187,19 @@ void	ft_expand(t_token **current, t_env *env)
 					free(value);
 					new_string = temp;
 				}
-				free(variable_name);	
+				free(variable_name);
 			}
 
 		}
 		i++;
+	}
+	if (last_pos < (int)ft_strlen((*current)->value))
+	{
+		befor_string =  ft_substr((*current)->value, last_pos, i - last_pos); //
+		temp = ft_strjoined(new_string, befor_string);
+		free(new_string);
+		free(befor_string);
+		new_string = temp;
 	}
 
 	// printf("%s\n", rest);	

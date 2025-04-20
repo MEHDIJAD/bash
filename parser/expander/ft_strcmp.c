@@ -9,8 +9,8 @@ int ft_strcmp(const char *alpha, const char *bita)
     while (alpha[i] != '\0' && bita[i] != '\0' && alpha[i] == bita[i])
         i++;
     if (alpha[i] == bita[i]) {
-        return (1);
-    } else {
         return (0);
+    } else {
+        return (1);
     }
 }
