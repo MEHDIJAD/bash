@@ -14,7 +14,6 @@ SRC = parser.c \
 	  tokenize/ft_utils_error.c \
 	  tokenize/ft_print_tokens.c \
 	  expander/expander.c \
-	  expander/ft_realloc.c \
 	  expander/ft_strcmp.c \
 	  expander/ft_strjoined.c \
 	  expander/ft_substr.c \
