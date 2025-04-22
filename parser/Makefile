@@ -14,12 +14,15 @@ SRC = parser.c \
 	  tokenize/ft_utils_error.c \
 	  tokenize/ft_print_tokens.c \
 	  expander/expander.c \
+	  expander/ft_isdigit.c \
 	  expander/ft_strcmp.c \
 	  expander/ft_strjoined.c \
 	  expander/ft_substr.c \
 	  expander/ft_clean_up.c \
 	  expander/ft_expand_tools.c \
 	  expander/ft_build_variable_name.c \
+	  expander/ft_isvariablet_exist.c \
+	  expander/ft_exec_exp.c \
 	  expander/env/ft_getenv.c \
 	  expander/env/ft_tenv_new.c \
 	  expander/env/ft_tenv_add_back.c \

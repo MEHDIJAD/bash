@@ -56,5 +56,7 @@ int	ft_peakahead(char c)
 		return (2);
 	else if (c >= '0' && c <= '9')
 		return (3);
+	else if (c == '\"' || c == '\'')
+		return (4);
 	return (-1);
 }

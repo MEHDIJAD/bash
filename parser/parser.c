@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:54 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/19 16:50:47 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:19:04 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(line);
 			token_list_head = ft_tokenize(line);
-			ft_expander(&token_list_head, env_list_head); //TODO
+			ft_expander(&token_list_head, env_list_head);
 			if (token_list_head)
 				ft_print_token_list(token_list_head);
 		}

@@ -1,6 +1,6 @@
 #include "../parser.h"
 
-static size_t	ft_vtsize(char *string, int j)
+static size_t	ft_vtsize(const char *string, int j)
 {
 	size_t	size = 0;
 
@@ -12,7 +12,7 @@ static size_t	ft_vtsize(char *string, int j)
 	return (size);
 }
 
-static char *ft_build_digit(char *string, int *i)
+static char *ft_build_digit(const char *string, int *i)
 {
 	char *vt_name;
 
@@ -25,7 +25,7 @@ static char *ft_build_digit(char *string, int *i)
 	return (vt_name);
 }
 
-static char *ft_build_world(char *string, int *i)
+static char *ft_build_world(const char *string, int *i)
 {
 	size_t	vt_size;
 	char	*vt_name;
@@ -46,7 +46,7 @@ static char *ft_build_world(char *string, int *i)
 	*i += vt_size + 1;
 	return (vt_name);
 }
-char	*ft_build_variable_name(char *string, int *i, int peak)
+char	*ft_build_variable_name(const char *string, int *i, int peak)
 {
 	char		*vt_name;
 
