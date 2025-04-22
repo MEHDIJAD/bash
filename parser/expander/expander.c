@@ -81,9 +81,9 @@ char	*ft_build_variable_name(char *string, int *i, int peak)
 		vt_name = malloc(2);
 		if (!vt_name)
 			return (NULL);
-		vt_name[0] = string[*i];
+		vt_name[0] = string[0];
 		vt_name[1] = '\0';
-		*i += 1;
+		*i += 2;
 	}
 	else if (peak == 1)
 	{	
@@ -98,7 +98,7 @@ char	*ft_build_variable_name(char *string, int *i, int peak)
 		while (j < vt_size)
 				vt_name[k++] = string[j++];
 		vt_name[k] = '\0';
-		*i += vt_size;
+		*i += vt_size + 1;
 	}
 	return (vt_name);
 }
@@ -125,23 +125,23 @@ void	ft_expand(t_token **current, t_env *env)
 	char	*new_string;
 	char	*value;
 	char	*temp;
-	char	*befor_string;
+	char	*segment;
 	int		last_pos = 0;
 
 	i = 0;
-	// j = 0;
 	new_string = NULL;
 
 	while ((*current)->value[i])
 	{
 		if ((*current)->value[i] == '$' && (*current)->value[i + 1])
 		{
+			// apend the segment\($)
 			if (i > last_pos)
 			{
-				befor_string =  ft_substr((*current)->value, last_pos, i - last_pos); //
-				temp = ft_strjoined(new_string, befor_string);
+				segment =  ft_substr((*current)->value, last_pos, i - last_pos);
+				temp = ft_strjoined(new_string, segment);
 				free(new_string);
-				free(befor_string);
+				free(segment);
 				new_string = temp;
 			}
 			peak = ft_peakahead((*current)->value[i + 1]);
@@ -155,11 +155,12 @@ void	ft_expand(t_token **current, t_env *env)
 				if ((value = ft_ckeckvt_exist(env, variable_name)))
 				{
 					temp = ft_strjoined(new_string, value);
+					free(new_string);
 					new_string = temp;
 				}
 				free(variable_name);
 				free(value);
-				i++;
+				// i++;
 				last_pos = i;
 				continue; // <--- Skip the final i++ for this iteration
 			}
@@ -173,14 +174,13 @@ void	ft_expand(t_token **current, t_env *env)
 			}
 			else if (peak == 3)
 			{
-				printf("there\n");
-				i += 2;
-				continue;
 				// $one_digit
 				variable_name =  ft_build_variable_name(&(*current)->value[i + 1], &i, peak);
+				// printf("vt:-->%s\n", variable_name);
 				// printf("$ variable_name digit  is %s\n", variable_name);
 				if ((value = ft_ckeckvt_exist(env, variable_name)))
 				{
+					// printf("here\n");
 					// printf("Variable exist\n");
 					temp = ft_strjoined(new_string, value);
 					free(new_string);
@@ -188,6 +188,9 @@ void	ft_expand(t_token **current, t_env *env)
 					new_string = temp;
 				}
 				free(variable_name);
+				// i++;
+				last_pos = i;
+				continue;
 			}
 
 		}
@@ -195,10 +198,10 @@ void	ft_expand(t_token **current, t_env *env)
 	}
 	if (last_pos < (int)ft_strlen((*current)->value))
 	{
-		befor_string =  ft_substr((*current)->value, last_pos, i - last_pos); //
-		temp = ft_strjoined(new_string, befor_string);
+		segment =  ft_substr((*current)->value, last_pos, i - last_pos); //
+		temp = ft_strjoined(new_string, segment);
 		free(new_string);
-		free(befor_string);
+		free(segment);
 		new_string = temp;
 	}
 
