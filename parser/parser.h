@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/22 09:20:47 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:19:08 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ void	ft_expander(t_token **token, t_env *env);
 char	*ft_strjoined(char const *string, char const *str);
 int		ft_strcmp(const char *alpha, const char *bita);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_clean_up(t_token **token);
+int		ft_isdouble_quote(char *word);
+int 	ft_isexpandable(t_token *current);
+int		ft_isbign_variable(char c);
+int 	ft_ispt_variable(char c);
+int		ft_peakahead(char c);
+char	*ft_build_variable_name(char *string, int *i, int peak);
+
 
 //	expander/env
 t_env	*ft_getenv(char **env);

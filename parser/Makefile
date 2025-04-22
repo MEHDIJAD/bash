@@ -17,6 +17,9 @@ SRC = parser.c \
 	  expander/ft_strcmp.c \
 	  expander/ft_strjoined.c \
 	  expander/ft_substr.c \
+	  expander/ft_clean_up.c \
+	  expander/ft_expand_tools.c \
+	  expander/ft_build_variable_name.c \
 	  expander/env/ft_getenv.c \
 	  expander/env/ft_tenv_new.c \
 	  expander/env/ft_tenv_add_back.c \
