@@ -50,10 +50,8 @@ char *ft_precess_exp(char *curr_new, const char *orig_token, int *i_ptr, t_env *
 	else if (peak == 2)
 	{
 		// $?
-		// *i_ptr += 2;
-	}
-	else if (peak == 4)
 		*i_ptr += 2;
+	}
 	else
 	{
 		result_str = ft_append_segment(result_str, orig_token, *i_ptr, 1);
