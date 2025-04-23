@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/23 12:37:10 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:55:35 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		ft_isoperater(int c);
 int		ft_isdouble_op(const char *line, int k);
 char	**free_all(char **tkn_array, int i);
 char	*ft_alloc_token(int token_len, int j, const char *line);
+void	ft_advance_word_token(const char *line, int *i);
 // ft_utils_error.c
 int		quote_error(const char *line);
 int		pipe_error(const char *line);

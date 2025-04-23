@@ -6,33 +6,12 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:17:32 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/23 12:36:51 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:54:54 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
 
-static void ft_advance_word_token(const char *line, int *i)
-{
-	char	quote;
-	
-	while (line[*i])
-	{
-		if (line[*i] == '$' && line[*i + 1] && ft_isquot(line[*i + 1]))
-		{
-			quote = line[*i + 1];
-			*i += 2;
-			while (line[*i] && line[*i] != quote)
-				(*i)++;
-			if (line[*i] == quote)
-				(*i)++;
-			continue ;
-		}
-		if (ft_isspace(line[*i]) || ft_isoperater(line[*i]) || ft_isquot(line[*i]))
-			break ;
-		(*i)++;
-	}
-}
 static void	skip_token(const char *line, int *i)
 {
 	char	quote;
