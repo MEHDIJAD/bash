@@ -6,12 +6,33 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:17:32 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/16 16:48:47 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:36:51 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parser.h"
 
+static void ft_advance_word_token(const char *line, int *i)
+{
+	char	quote;
+	
+	while (line[*i])
+	{
+		if (line[*i] == '$' && line[*i + 1] && ft_isquot(line[*i + 1]))
+		{
+			quote = line[*i + 1];
+			*i += 2;
+			while (line[*i] && line[*i] != quote)
+				(*i)++;
+			if (line[*i] == quote)
+				(*i)++;
+			continue ;
+		}
+		if (ft_isspace(line[*i]) || ft_isoperater(line[*i]) || ft_isquot(line[*i]))
+			break ;
+		(*i)++;
+	}
+}
 static void	skip_token(const char *line, int *i)
 {
 	char	quote;
@@ -33,9 +54,7 @@ static void	skip_token(const char *line, int *i)
 			(*i)++;
 	}
 	else
-		while (line[*i] && !ft_isspace(line[*i])
-			&& !ft_isquot(line[*i]) && !ft_isoperater(line[*i]))
-			(*i)++;
+		ft_advance_word_token(line, i);
 }
 
 static size_t	ft_cnt_tokens(const char *line)
@@ -76,9 +95,7 @@ static char	*extract_token(const char *line, int *k)
 	else if (ft_isoperater(line[j]))
 		*k += 1 + ft_isdouble_op(line, j);
 	else
-		while (line[*k] && !ft_isspace(line[*k])
-			&& !ft_isquot(line[*k]) && !ft_isoperater(line[*k]))
-			(*k)++;
+		ft_advance_word_token(line, k);
 	token_len = *k - j;
 	if (token_len <= 0) // Handle cases like "" or potential errors
 		token_len = 0; // Ensure non-negative length for malloc
