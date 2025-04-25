@@ -23,12 +23,13 @@ void	ft_expander(t_token **token, t_env *env)
 	t_token *current;
 
 	current = *token;
+	(void)env;
 	while (current)
 	{
-		// if (ft_isexpandable(current))
-		// {
+		if (ft_isexpandable(current))
+		{
 			ft_expand(&current, env);
-		// }
+		}
 		// else
 		// 	ft_spacial_case(&current);
 		ft_clean_up(&current);

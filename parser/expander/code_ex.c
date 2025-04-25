@@ -5,7 +5,14 @@
 // 	return (0);
 // }
 
-char	*ft_append_segemnt(char *curr_new, const char *orig, int last_pos, int index)
+typedef struct s_proc
+{
+	char	*to_proc;
+	char	quote_char;
+	int		last_pos;
+}	t_proc;
+
+char	*ft_append_segment(char *curr_new, const char *orig, int last_pos, int index)
 {
 	char	*segment;
 	char	*temp;
@@ -21,52 +28,109 @@ char	*ft_append_segemnt(char *curr_new, const char *orig, int last_pos, int inde
 	return (free(curr_new), free(segment), temp);
 }
 
-char	*ft_append_vn(char *new_str, char *orig, int peak)
+
+char	*ft_process(char *new_str, t_proc *prc, t_env *env)
 {
-	if (peak == 1)
-		new_str = ft_append_env_value();
+	/*
+		1- parse prcess 
+
+	*/
+	int j;
+	char	*temp;
+
+	(void)env;
+	(void)new_str;
+	j = 0;
+	while (prc->to_proc[j])
+	{
+		if (prc->to_proc[j] == '$' && prc->quote_char == '\"')
+		{
+			// expand
+
+			return (NULL);
+			j++;
+			
+		}
+		else if (prc->to_proc[j] == '$' && prc->quote_char == '\'')
+		{
+			temp = ft_strjoined(new_str, prc->to_proc);
+			free(new_str);
+			new_str = temp;
+			break ;
+		}
+		j++;
+	}
+	return (new_str);
+}
+size_t	ft_len(const char *str, int start_index)
+{
+	int		i;
+	char	quote_char;
+
+	if (!str || !str[start_index] || !ft_isquot(str[start_index]))
+		return (0);
+	quote_char = str[start_index];
+	i = start_index + 1;
+	while (str[i])
+	{
+		if (str[i] == quote_char)
+			return ((i - start_index) + 1);
+		i++;
+	}
+	return (0);	
 }
 char	*ft_build_expanded_string(const char *orig, t_env *env)
 {
 	int		i;
-	int		last_pos;
 	char	*new_str;
-	char	next_char;
-	int		peak;
+	t_proc	prc;
+	size_t	len;
 
 	i = 0;
-	last_pos = 0;
 	(void)env;
 	new_str = ft_strdup("");
+	prc.quote_char = '\0'; // to indecat no quots in ft_process
+	prc.last_pos = 0;
 	if (!new_str)
 		return (NULL);
 	while (orig[i])
 	{
-		if (orig[i] == '$' && orig[i + 1])
+		if (ft_isquot(orig[i]))
 		{
-			new_str = ft_append_segemnt(new_str, orig, last_pos, i);
-			if (!new_str)
-				return (NULL);
-			next_char = orig[i + 1];
-			if (ft_isquot(next_char))
+			new_str = ft_append_segment(new_str, orig, prc.last_pos, i);
+			prc.quote_char = orig[i];
+			// printf("%c\n", prc.quote_char);
+			len = ft_len(orig, i);
+			// printf("%zu\n", len);
+			if (len > 0)
 			{
-				i += 1;
-				last_pos = i;
-			}
-			else if (ft_isbign_variable(next_char) || ft_isdigit(next_char))
-			{
-				peak = ft_peakahead(next_char);
-				new_str = ft_append_vn(new_str, orig, peak);
-
-				// take part of $ inside of a quote --> if double quotes expand 
-			}
+				prc.to_proc = ft_substr(orig, i, len);
+				// printf("prc: %s\n", prc.to_proc);
+				if (!prc.to_proc )
+				return (free(new_str), NULL);
+				new_str = ft_process(new_str, &prc , env);
+				if (!new_str)
+					return (NULL);
+				i += len;
+				prc.last_pos = i;
+			}	
 		}
-		i++;
+		// else if (orig[i] == '$')
+		// {
+		// 	// apend segement
+		// 	/* 
+		// 		1- look at (i + 1)char:
+		// 		if quote advance i++ and last_p
+		// 		else if big pf vt or digit process
+		// 	*/
+			
+		// }
+		else
+		{
+			i++;
+		}
 	}
-	new_str = ft_append_segemnt(new_str, orig, last_pos, i);
-	if (!new_str)
-		return (NULL);
-	return (new_str);	
+	return (ft_append_segment(new_str, orig, prc.last_pos, i)); // append after
 }
 
 void	ft_expand(t_token **token, t_env *env)
