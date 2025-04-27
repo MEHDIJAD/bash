@@ -52,11 +52,13 @@ int	ft_peakahead(char c)
 		return (0);
 	else if (ft_isbign_variable(c))
 	return (1);
-	else if (c == '?')
-		return (2);
 	else if (c >= '0' && c <= '9')
+		return (2);
+	else if (c == '?')
 		return (3);
-	else if (ft_isquot(c))
+	else if (c == '$')
 		return (4);
+	// else if (ft_isspecial_char(c))
+	// 	return (5);
 	return (-1);
 }

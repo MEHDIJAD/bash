@@ -12,6 +12,16 @@ char	*append_single_char(char *new_str,char c)
 	new_str = temp;
 	return (new_str);
 }
+
+char	*ft_expenv( char *new_str, const char *orign, t_env *env, int *i)
+{
+	int peak = ft_peakahead(orign[*i + 1]);
+	
+	(void)new_str, (void)orign, (void)env;
+	
+	return (new_str);
+
+}
 char *ft_build_expanded_string(const char *orign, t_env *env)
 {
 	int		i;
@@ -31,7 +41,7 @@ char *ft_build_expanded_string(const char *orign, t_env *env)
 		}
 		else if (orign[i] == '$' && orign[i + 1] && (quote_char == '\"' || !quote_char))
 		{
-			printf("EXPND NOW!\n");
+			new_str = ft_expenv( new_str, &orign[i], env, &i);
 		}
 		else
 			new_str = append_single_char(new_str, orign[i++]);
