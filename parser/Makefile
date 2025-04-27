@@ -22,7 +22,7 @@ SRC = parser.c \
 	  expander/ft_expand_tools.c \
 	  expander/ft_build_variable_name.c \
 	  expander/ft_isvariablet_exist.c \
-	  expander/code_ex.c \
+	  expander/ft_exec_exp.c \
 	  expander/env/ft_getenv.c \
 	  expander/env/ft_tenv_new.c \
 	  expander/env/ft_tenv_add_back.c \

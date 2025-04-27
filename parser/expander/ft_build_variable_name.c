@@ -12,20 +12,20 @@ static size_t	ft_vtsize(const char *string, int j)
 	return (size);
 }
 
-static char *ft_build_digit(const char *string, int *i)
+static char *ft_build_digit(const char *string, t_exp_res *exp)
 {
 	char *vt_name;
 
 	vt_name = malloc(2);
 	if (!vt_name)
 		return (NULL);
+	exp->chars_consumed = 2;
 	vt_name[0] = string[0];
 	vt_name[1] = '\0';
-	*i += 2;
 	return (vt_name);
 }
 
-static char *ft_build_world(const char *string, int *i)
+static char *ft_build_world(const char *string, t_exp_res *exp)
 {
 	size_t	vt_size;
 	char	*vt_name;
@@ -43,22 +43,25 @@ static char *ft_build_world(const char *string, int *i)
 	while (j < vt_size)
 			vt_name[k++] = string[j++];
 	vt_name[k] = '\0';
-	*i += vt_size + 1;
+	exp->chars_consumed = vt_size;
 	return (vt_name);
 }
-char	*ft_build_variable_name(const char *string, int *i, int peak)
+char	*ft_build_variable_name(t_exp_res *exp, const char *string, int peak)
 {
 	char		*vt_name;
 
+	
 	if (peak == 3)
 	{
-		vt_name = ft_build_digit(string, i);
+		vt_name = ft_build_digit(string, exp);
 		if (!vt_name)
+		{
 			return (NULL);
+		}
 	}
 	if (peak == 1)
 	{	
-		vt_name = ft_build_world(string, i);
+		vt_name = ft_build_world(string, exp);
 		if (!vt_name)
 			return (NULL);
 	}
