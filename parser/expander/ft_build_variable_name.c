@@ -48,11 +48,9 @@ char	*ft_build_variable_name(const char *orign, int peak, int *index)
 	char		*vt_name;
 	size_t		var_size;
 
-	// printf("here;build\n");//^_____________
 	var_size = 0;
 	if (peak == 2)
 	{
-		// printf("here;digit\n");//^_____________
 		vt_name = ft_build_digit(orign);
 		if (!vt_name)
 			return (NULL);
@@ -61,10 +59,9 @@ char	*ft_build_variable_name(const char *orign, int peak, int *index)
 	if (peak == 1)
 	{	
 		vt_name = ft_build_world(orign, &var_size);
-		// printf("%s\n", vt_name);
 		if (!vt_name)
 			return (NULL);
-		*index += var_size + 1; //!_______KEEP__________
+		*index += var_size + 1;
 	}
 	return (vt_name);
 }

@@ -21,11 +21,13 @@ char	*ft_append_vt(char *new_str, const char *orign, t_env *env, int *i, int pea
 
 	var_name = ft_build_variable_name(orign, peak, i);
 	if (!var_name)
-		return (NULL);
+		return (new_str);
 	var_value = ft_isvariablet_exist(env, var_name);
 	if (!var_value)
-		return (NULL);
+		return (free(var_name), new_str);
 	temp = ft_strjoined(new_str, var_value);
+	if (!temp)
+		return (new_str);
 	free(new_str);
 	new_str = temp;
 	free(var_name);
@@ -35,13 +37,26 @@ char	*ft_append_vt(char *new_str, const char *orign, t_env *env, int *i, int pea
 char	*ft_expenv(char *new_str, const char *orign, t_env *env, int *i)
 {
 	int	peak;
+
 	peak = ft_peakahead(orign[1]);
-	if (peak == 1 || 2)
+	if (peak == -1)
+	{
+		new_str = append_single_char(new_str, orign[0]);
+		(*i)++;
+	}
+	else if (peak == 1 || peak == 2)
 	{
 		new_str = ft_append_vt(new_str, orign, env, i, peak);
 		if (!new_str)
 			return (NULL);
 	}
+	else if (peak == 3)
+	{
+		// new_str = ft_append_exit_status();
+		//!__________FOR: $!
+	}
+	else if (peak == 4)
+		*i += 2;
 	return (new_str);
 
 }
@@ -57,6 +72,8 @@ char *ft_build_expanded_string(const char *orign, t_env *env)
 	quote_char = '\0';
 	while (orign && orign[i])
 	{
+		if (orign[i] == '$' && !quote_char && ft_isquot(orign[i + 1]))
+			i++;
 		if (orign[i] && ft_isquot(orign[i]) && !quote_char)
 		{
 			quote_char = orign[i];
