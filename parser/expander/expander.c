@@ -12,7 +12,7 @@ void	ft_expander(t_token **token, t_env *env)
 		{
 			ft_expand(&current, env);
 		}
-		// ft_clean_up(&current);
+		ft_clean_up(&current);
 		current = current->next;
 	}
 }

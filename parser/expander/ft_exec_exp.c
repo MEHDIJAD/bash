@@ -13,12 +13,35 @@ char	*append_single_char(char *new_str,char c)
 	return (new_str);
 }
 
-char	*ft_expenv( char *new_str, const char *orign, t_env *env, int *i)
+char	*ft_append_vt(char *new_str, const char *orign, t_env *env, int *i, int peak)
 {
-	int peak = ft_peakahead(orign[*i + 1]);
-	
-	(void)new_str, (void)orign, (void)env;
-	
+	char	*var_name;
+	char	*var_value;
+	char	*temp;
+
+	var_name = ft_build_variable_name(orign, peak, i);
+	if (!var_name)
+		return (NULL);
+	var_value = ft_isvariablet_exist(env, var_name);
+	if (!var_value)
+		return (NULL);
+	temp = ft_strjoined(new_str, var_value);
+	free(new_str);
+	new_str = temp;
+	free(var_name);
+	return (new_str);
+}
+
+char	*ft_expenv(char *new_str, const char *orign, t_env *env, int *i)
+{
+	int	peak;
+	peak = ft_peakahead(orign[1]);
+	if (peak == 1 || 2)
+	{
+		new_str = ft_append_vt(new_str, orign, env, i, peak);
+		if (!new_str)
+			return (NULL);
+	}
 	return (new_str);
 
 }
@@ -27,23 +50,29 @@ char *ft_build_expanded_string(const char *orign, t_env *env)
 	int		i;
 	char	quote_char;
 	char	*new_str;
+	const char *process;
 
-	(void)env; //!_________LOOK
 	new_str = ft_strdup("");
 	i = 0;
 	quote_char = '\0';
 	while (orign && orign[i])
 	{
-		if (ft_isquot(orign[i]) && !quote_char)
+		if (orign[i] && ft_isquot(orign[i]) && !quote_char)
 		{
 			quote_char = orign[i];
 			new_str = append_single_char(new_str, orign[i++]);
 		}
+		else if (orign[i] && quote_char && orign[i] == quote_char)
+		{
+			quote_char = '\0';
+			new_str = append_single_char(new_str, orign[i++]);
+		}
 		else if (orign[i] == '$' && orign[i + 1] && (quote_char == '\"' || !quote_char))
 		{
-			new_str = ft_expenv( new_str, &orign[i], env, &i);
+			process = &orign[i];
+			new_str = ft_expenv(new_str, process, env, &i);
 		}
-		else
+		else if (orign[i])
 			new_str = append_single_char(new_str, orign[i++]);
 	}
 	return (new_str);
@@ -69,6 +98,5 @@ void	ft_expand(t_token **token, t_env *env)
 		}
 	}
 	free(orig_value);
-	(*token)->value = exp_value;
-	
+	(*token)->value = exp_value;	
 }

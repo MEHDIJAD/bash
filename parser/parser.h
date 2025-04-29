@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:43 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/27 10:41:00 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:07:24 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int 	ft_isexpandable(t_token *current);
 int		ft_isbign_variable(char c);
 int 	ft_ispt_variable(char c);
 int		ft_peakahead(char c);
-char	*ft_build_variable_name(t_exp_res *exp, const char *string, int peak);
+char	*ft_build_variable_name(const char *orign, int peak, int *index);
 char	*ft_isvariablet_exist(t_env *env_list, char *variable_name);
 void	ft_expand(t_token **token_ptr, t_env *env);
 int		ft_isdigit(int c);
