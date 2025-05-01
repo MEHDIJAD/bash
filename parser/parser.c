@@ -6,7 +6,7 @@
 /*   By: eel-garo <eel-garo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:16:54 by eel-garo          #+#    #+#             */
-/*   Updated: 2025/04/26 18:26:30 by eel-garo         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:54:28 by eel-garo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	t_token	*token_list_head;
 	t_env	*env_list_head;
+	t_cmd	*cmd_list_head;
 
 	token_list_head = NULL;
 	env_list_head = NULL;
+	cmd_list_head = NULL;
 	(void)ac;
 	(void)av;
+	(void)cmd_list_head;
 	env_list_head = ft_getenv(env);
 	//~ one-time setup; ensures the pointer is not holding a garbage value
 	while (1)
@@ -37,12 +40,16 @@ int	main(int ac, char **av, char **env)
 			add_history(line);
 			token_list_head = ft_tokenize(line);
 			ft_expander(&token_list_head, env_list_head);
-			// 
-			if (token_list_head)
-				ft_print_token_list(token_list_head);
+			cmd_list_head =  ft_creat_cmd_table(token_list_head);
+			ft_print_cmd_table(cmd_list_head);
+			// ft-excution (Here)
+			// if (token_list_head)
+			// 	ft_print_token_list(token_list_head);
 		}
 		free(line);
 		ft_token_clear(&token_list_head);
+		ft_cmd_clear(&cmd_list_head);
+		cmd_list_head = NULL;
 		token_list_head = NULL;
 		line = NULL;
 	}
